@@ -3,7 +3,7 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 const links = [
-  { label: 'Vision', href: '#vision' },
+  { label: 'Vision', href: '#opening' },
   { label: 'The Problem', href: '#problem' },
   { label: 'Solution', href: '#solution' },
   { label: 'Founder', href: '#founder' },
@@ -60,7 +60,7 @@ export default function Navbar() {
             href="#support"
             className="hidden items-center gap-1 border border-[#121212] bg-[#121212] text-[#F4F3EF] rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all hover:bg-transparent hover:text-[#121212] sm:flex"
           >
-            Support <ArrowUpRight className="h-3 w-3" />
+            Get Support <ArrowUpRight className="h-3 w-3" />
           </a>
           <button
             onClick={() => setOpen((o) => !o)}
@@ -100,7 +100,7 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
             className="flex items-center justify-center gap-2 rounded-full border border-[#121212] bg-[#121212] py-4 text-sm font-semibold uppercase tracking-wider text-[#F4F3EF] hover:bg-transparent hover:text-[#121212] transition-colors"
           >
-            Support the initiative <ArrowUpRight className="h-4 w-4" />
+            Get support <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
       </motion.div>

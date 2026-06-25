@@ -11,6 +11,10 @@ import {
   Shield,
   Compass,
   Sparkles,
+  Phone,
+  LifeBuoy,
+  Building2,
+  MapPin,
 } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Reveal from './components/Reveal';
@@ -62,6 +66,58 @@ const approaches = [
       'Creative, cultural, and themed gathering concepts'
     ]
   }
+];
+
+const supportContacts = [
+  {
+    category: 'Alcohol support',
+    title: 'Alcoholics Anonymous South Africa',
+    description: 'Peer support for anyone who wants help with drinking or wants to find an AA meeting.',
+    icon: Phone,
+    channels: [
+      { label: 'National hotline', value: '0861 435 722', href: 'tel:0861435722' },
+      { label: 'Meetings', value: 'Find an AA meeting', href: 'https://aasouthafrica.org.za/meetings/' },
+    ],
+  },
+  {
+    category: 'Drug recovery support',
+    title: 'Narcotics Anonymous South Africa',
+    description: 'Free recovery meetings and peer support for people dealing with drug addiction.',
+    icon: LifeBuoy,
+    channels: [
+      { label: 'National phoneline', value: '0861 00 6962', href: 'tel:0861006962' },
+      { label: 'Meetings', value: 'Find an NA meeting', href: 'https://na.org.za/meetings/' },
+    ],
+  },
+  {
+    category: 'Substance abuse support',
+    title: 'SANCA National Office',
+    description: 'Counselling, prevention, treatment, and recovery services related to alcohol and drug misuse.',
+    icon: Building2,
+    channels: [
+      { label: 'Phone', value: '011 892 3829', href: 'tel:0118923829' },
+      { label: 'Mobile', value: '076 535 1701', href: 'tel:0765351701' },
+    ],
+  },
+  {
+    category: 'Mental health crisis support',
+    title: 'South African Depression and Anxiety Group',
+    description: 'Mental health support, crisis counselling, referrals, and student helpline pathways.',
+    icon: Heart,
+    channels: [
+      { label: 'Suicide Crisis Line', value: '0800 567 567', href: 'tel:0800567567' },
+      { label: 'SMS', value: '31393', href: 'sms:31393' },
+      { label: 'WhatsApp', value: '076 882 2775', href: 'https://wa.me/27768822775' },
+    ],
+  },
+];
+
+const nearbySupportPaths = [
+  'Campus counselling centres',
+  'Local psychologists',
+  'University wellness services',
+  'SANCA branches',
+  'Community support groups',
 ];
 
 function App() {
@@ -128,7 +184,7 @@ function App() {
         <div className="border-t border-editorial py-8 px-6 md:px-12 bg-white/20 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
             <div className="flex flex-wrap gap-4">
-              <a href="#vision" className="btn-editorial border border-[#121212] bg-[#121212] text-[#F4F3EF] px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-colors z-10">
+              <a href="#opening" className="btn-editorial border border-[#121212] bg-[#121212] text-[#F4F3EF] px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-colors z-10">
                 Read the vision
               </a>
               <a href="#problem" className="border border-[#121212]/20 hover:border-[#121212] hover:bg-[#121212]/5 transition-colors px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#121212]/80">
@@ -420,8 +476,149 @@ function App() {
         </div>
       </section>
 
+      {/* ============ STUDENT SUPPORT DIRECTORY ============ */}
+      <section id="support" className="relative px-6 py-24 md:px-12 border-b border-editorial bg-[#EAE8E3]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-14">
+            <div className="lg:col-span-3">
+              <span className="font-mono text-xs uppercase tracking-widest text-[#121212]/40">Section 08 // Student Support</span>
+              <h3 className="font-serif italic text-2xl text-[#C5A059] mt-2">Immediate pathways</h3>
+            </div>
+
+            <div className="lg:col-span-9">
+              <Reveal>
+                <h2 className="text-3xl md:text-5xl font-light tracking-tight text-[#121212] leading-tight max-w-4xl">
+                  When alcohol or substance pressure becomes personal, help should be easy to find.
+                </h2>
+              </Reveal>
+
+              <Reveal delay={0.1}>
+                <p className="mt-6 text-base md:text-lg text-[#121212]/70 leading-relaxed max-w-3xl">
+                  Open Circle is not a crisis service. This directory points students toward established South African support routes for alcohol misuse, drug recovery, and mental health emergencies.
+                </p>
+              </Reveal>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+            <div className="xl:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-5">
+              {supportContacts.map((contact, i) => {
+                const ContactIcon = contact.icon;
+
+                return (
+                  <Reveal key={contact.title} direction="up" delay={i * 0.05}>
+                    <div className="bg-white border border-editorial rounded-3xl p-6 h-full flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-start justify-between gap-4 mb-6">
+                          <div>
+                            <span className="text-[10px] uppercase tracking-widest font-mono text-[#C5A059] block mb-2">
+                              {contact.category}
+                            </span>
+                            <h4 className="text-xl font-medium tracking-tight text-[#121212] leading-snug">
+                              {contact.title}
+                            </h4>
+                          </div>
+
+                          <div className="h-11 w-11 rounded-2xl bg-[#1C3144]/7 text-[#1C3144] flex items-center justify-center shrink-0">
+                            <ContactIcon className="h-5 w-5" />
+                          </div>
+                        </div>
+
+                        <p className="text-sm text-[#121212]/65 leading-relaxed">
+                          {contact.description}
+                        </p>
+                      </div>
+
+                      <div className="mt-6 space-y-3">
+                        {contact.channels.map((channel) => {
+                          const isExternal = channel.href.startsWith('http');
+
+                          return (
+                            <a
+                              key={`${contact.title}-${channel.label}`}
+                              href={channel.href}
+                              target={isExternal ? '_blank' : undefined}
+                              rel={isExternal ? 'noreferrer' : undefined}
+                              className="group flex items-center justify-between gap-4 rounded-2xl border border-editorial bg-[#F4F3EF] px-4 py-3 text-sm transition-all hover:border-[#1C3144]/30 hover:bg-[#1C3144] hover:text-[#F4F3EF]"
+                            >
+                              <span className="font-mono text-[10px] uppercase tracking-widest text-[#121212]/45 group-hover:text-[#F4F3EF]/60">
+                                {channel.label}
+                              </span>
+                              <span className="flex items-center gap-2 font-medium text-right">
+                                {channel.value}
+                                {isExternal && <ArrowUpRight className="h-3.5 w-3.5" />}
+                              </span>
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+
+            <Reveal direction="left" className="xl:col-span-4">
+              <div className="h-full rounded-3xl border border-[#121212]/15 bg-[#121212] p-8 text-[#F4F3EF] flex flex-col justify-between">
+                <div>
+                  <div className="mb-8 flex items-center justify-between gap-6">
+                    <div>
+                      <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block mb-3">
+                        Referral concept
+                      </span>
+                      <h4 className="text-3xl font-serif font-light tracking-tight">
+                        "Find Support Near Me"
+                      </h4>
+                    </div>
+
+                    <div className="h-12 w-12 rounded-2xl bg-[#F4F3EF]/10 text-[#C5A059] flex items-center justify-center shrink-0">
+                      <MapPin className="h-5 w-5" />
+                    </div>
+                  </div>
+
+                  <p className="text-sm leading-relaxed text-[#F4F3EF]/70 mb-8">
+                    This can grow into a location-aware pathway that helps students move from national helplines into nearby, trusted support.
+                  </p>
+
+                  <div className="grid grid-cols-1 gap-3">
+                    {nearbySupportPaths.map((path) => (
+                      <div
+                        key={path}
+                        className="flex items-center justify-between gap-4 rounded-2xl border border-[#F4F3EF]/10 bg-white/5 px-4 py-3"
+                      >
+                        <span className="text-sm text-[#F4F3EF]/85">{path}</span>
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#C5A059]" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3">
+                  <a
+                    href="https://www.sancanational.info/find-a-sanca-near-you"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F4F3EF] px-5 py-3 text-xs font-bold uppercase tracking-widest text-[#121212] transition-colors hover:bg-[#C5A059]"
+                  >
+                    Find a SANCA branch <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="https://www.sadag.org.za/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F4F3EF]/20 px-5 py-3 text-xs font-bold uppercase tracking-widest text-[#F4F3EF] transition-colors hover:bg-[#F4F3EF] hover:text-[#121212]"
+                  >
+                    SADAG helplines <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* ============ FOOTER / CALL TO ACTION ============ */}
-      <footer id="support" className="relative px-6 py-32 md:px-12 bg-[#121212] text-[#F4F3EF]">
+      <footer id="collaborate" className="relative px-6 py-32 md:px-12 bg-[#121212] text-[#F4F3EF]">
         <div className="max-w-7xl mx-auto flex flex-col justify-between min-h-[50vh]">
           
           <div className="space-y-8 max-w-4xl">
