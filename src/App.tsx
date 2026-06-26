@@ -2,126 +2,145 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowDown,
-  ArrowUpRight,
-  Globe,
-  MessageCircle,
-  Users,
-  Mail,
-  Heart,
-  Shield,
+  ArrowRight,
+  BookOpen,
+  CalendarDays,
   Compass,
+  Heart,
+  Leaf,
+  Mail,
+  MessageCircle,
+  Play,
+  Shield,
   Sparkles,
-  Phone,
-  LifeBuoy,
-  Building2,
-  MapPin,
+  Users,
 } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Reveal from './components/Reveal';
+import heroCommunity from './assets/hero-community.webp';
+import missionCafe from './assets/mission-cafe.webp';
 
-const affected = [
-  { title: 'First-year students', description: 'Navigating unfamiliar environments, stress, and intense social transition.' },
-  { title: 'Residence students', description: 'Living in high-density communal hubs where alcohol is embedded in residence life.' },
-  { title: 'International / out-of-town students', description: 'Rebuilding social circles far from home with heightened pressure to adapt.' },
-  { title: 'Socially isolated youth', description: 'Facing systemic or personal exclusion, increasing vulnerability to default coping mechanisms.' },
-  { title: 'Young adults in identity transition', description: 'Searching for where they fit in as they redefine their boundaries.' },
+const heroActions = [
+  { label: 'Read the vision', href: '#vision' },
+  { label: 'Why this matters', href: '#why' },
+  { label: 'About the founder', href: '#founder' },
+  { label: 'Support the initiative', href: '#support' },
 ];
 
-const pillars = [
-  { title: 'Belonging', sub: 'without pressure', icon: Heart },
-  { title: 'Moderation', sub: 'without judgment', icon: Compass },
-  { title: 'Inclusion', sub: 'without exclusion', icon: Users },
-  { title: 'Safety', sub: 'without stigma', icon: Shield },
-  { title: 'Connection', sub: 'without dependency', icon: Sparkles },
+const principles = [
+  { title: 'Belonging without pressure', icon: Heart },
+  { title: 'Moderation without judgment', icon: Compass },
+  { title: 'Inclusion without exclusion', icon: Users },
+  { title: 'Safety without stigma', icon: Shield },
+  { title: 'Connection without dependence', icon: Leaf },
 ];
 
-const approaches = [
+const affectedGroups = [
+  'First-year students',
+  'Residence students',
+  'International or out-of-town students',
+  'Socially isolated youth',
+  'Young adults navigating identity change',
+];
+
+const storySteps = [
   {
-    num: '01',
-    title: 'Peer Education',
-    desc: 'Creating conversations that help young people think critically about pressure, choice, and social norms.',
+    id: 'opening',
+    eyebrow: '01 / Opening Statement',
+    title: 'Belonging has too often been treated like a transaction.',
+    body:
+      'Too many young people learn that belonging comes with a price: drink, fit in, and do not question the culture around you. For those already facing loneliness, transition, or exclusion, this can deepen isolation and increase vulnerability to harmful drinking.',
+    callout:
+      'Open Circle exists to help build social spaces where young people can connect, celebrate, and belong without pressure.',
+  },
+  {
+    id: 'problem',
+    eyebrow: '02 / The Problem',
+    title: 'Alcohol can become the default route into social life.',
+    body:
+      'In many schools, universities, and youth communities, alcohol is embedded in social life. This can leave non-drinkers feeling excluded, while others may consume alcohol not out of choice, but out of a desire to belong.',
+    callout:
+      'When alcohol becomes the default route to belonging, social pressure can increase and genuine inclusion can weaken.',
+  },
+  {
+    id: 'affected',
+    eyebrow: '03 / Who Is Most Affected',
+    title: 'Transition, distance from home, and isolation raise the stakes.',
+    body:
+      'Young adults living away from home, particularly first-year and residence students, can be especially vulnerable as they navigate stress, identity, independence, and the search for connection.',
+    callout:
+      'Social isolation can increase vulnerability to harmful drinking, especially among young adults experiencing transition, stress, and pressure to fit in.',
+  },
+];
+
+const solutions = [
+  {
+    title: 'Peer education',
+    description:
+      'Creating conversations that help young people think critically about pressure, choice, and social norms.',
     details: [
       'Workshops on peer pressure and mindful decision-making',
-      'Discussions on social belonging, moderation, and responsibility',
-      'Student-led reflection spaces that encourage honest conversation'
-    ]
+      'Discussions on belonging, moderation, and responsibility',
+      'Student-led reflection spaces for honest conversation',
+    ],
+    icon: BookOpen,
   },
   {
-    num: '02',
-    title: 'Moderation & Safety Culture',
-    desc: 'Helping reshape social norms so that celebration and community do not rely on excess.',
+    title: 'Moderation and safety culture',
+    description:
+      'Helping reshape social norms so celebration and community do not rely on excess.',
+    details: ['Moderation', 'Consent', 'Safety', 'Inclusive hosting', 'Belonging without pressure'],
+    icon: Shield,
+  },
+  {
+    title: 'Alternative social programming',
+    description:
+      'Designing social experiences where young people connect in ways that are inclusive, creative, and not centred on alcohol.',
     details: [
-      'Campaigns around moderation, consent, and mutual safety',
+      'Game and conversation nights',
+      'Wellness-centred student events',
+      'Creative and cultural gatherings',
       'Themed residence events with inclusive hosting guidelines',
-      'Belonging without pressure as an active social virtue'
-    ]
-  },
-  {
-    num: '03',
-    title: 'Alternative Social Programming',
-    desc: 'Designing and encouraging social experiences where young people can connect in ways that are inclusive and creative.',
-    details: [
-      'Structured game, reflection, and deep conversation nights',
-      'Wellness-centred student events and recovery-friendly hubs',
-      'Creative, cultural, and themed gathering concepts'
-    ]
-  }
-];
-
-const supportContacts = [
-  {
-    category: 'Alcohol support',
-    title: 'Alcoholics Anonymous South Africa',
-    description: 'Peer support for anyone who wants help with drinking or wants to find an AA meeting.',
-    icon: Phone,
-    channels: [
-      { label: 'National hotline', value: '0861 435 722', href: 'tel:0861435722' },
-      { label: 'Meetings', value: 'Find an AA meeting', href: 'https://aasouthafrica.org.za/meetings/' },
     ],
-  },
-  {
-    category: 'Drug recovery support',
-    title: 'Narcotics Anonymous South Africa',
-    description: 'Free recovery meetings and peer support for people dealing with drug addiction.',
-    icon: LifeBuoy,
-    channels: [
-      { label: 'National phoneline', value: '0861 00 6962', href: 'tel:0861006962' },
-      { label: 'Meetings', value: 'Find an NA meeting', href: 'https://na.org.za/meetings/' },
-    ],
-  },
-  {
-    category: 'Substance abuse support',
-    title: 'SANCA National Office',
-    description: 'Counselling, prevention, treatment, and recovery services related to alcohol and drug misuse.',
-    icon: Building2,
-    channels: [
-      { label: 'Phone', value: '011 892 3829', href: 'tel:0118923829' },
-      { label: 'Mobile', value: '076 535 1701', href: 'tel:0765351701' },
-    ],
-  },
-  {
-    category: 'Mental health crisis support',
-    title: 'South African Depression and Anxiety Group',
-    description: 'Mental health support, crisis counselling, referrals, and student helpline pathways.',
-    icon: Heart,
-    channels: [
-      { label: 'Suicide Crisis Line', value: '0800 567 567', href: 'tel:0800567567' },
-      { label: 'SMS', value: '31393', href: 'sms:31393' },
-      { label: 'WhatsApp', value: '076 882 2775', href: 'https://wa.me/27768822775' },
-    ],
+    icon: CalendarDays,
   },
 ];
 
-const nearbySupportPaths = [
-  'Campus counselling centres',
-  'Local psychologists',
-  'University wellness services',
-  'SANCA branches',
-  'Community support groups',
+const whyMatters = [
+  'Mental wellbeing',
+  'Safety',
+  'Self-worth',
+  'Decision-making',
+  'Community trust',
+  'Academic and personal adjustment',
+];
+
+const earlyStage = [
+  'Refining the concept',
+  'Researching youth social culture and exclusion',
+  'Shaping a model for peer-led engagement',
+  'Developing a public-facing narrative for scholarship, partnership, and future pilot opportunities',
+];
+
+const quickLinks = [
+  { label: 'Vision', href: '#vision' },
+  { label: 'Problem', href: '#problem' },
+  { label: 'Solution', href: '#solution' },
+  { label: 'Why It Matters', href: '#why' },
+  { label: 'Founder', href: '#founder' },
+  { label: 'Support', href: '#support' },
+];
+
+const resourceLinks = [
+  'Peer education model',
+  'Inclusive hosting guide',
+  'Moderation resources',
+  'Youth wellbeing pathways',
+  'Future pilot notes',
 ];
 
 function App() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const storyRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress: heroProgress } = useScroll({
@@ -129,538 +148,520 @@ function App() {
     offset: ['start start', 'end start'],
   });
 
-  const heroY = useTransform(heroProgress, [0, 1], ['0%', '30%']);
-  const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0]);
+  const { scrollYProgress: storyProgress } = useScroll({
+    target: storyRef,
+    offset: ['start center', 'end center'],
+  });
+
+  const heroImageY = useTransform(heroProgress, [0, 1], ['0%', '12%']);
+  const heroTextY = useTransform(heroProgress, [0, 1], ['0%', '-8%']);
+  const storyLineScale = useTransform(storyProgress, [0, 1], [0.05, 1]);
 
   return (
-    <div ref={containerRef} className="relative grain min-h-screen bg-[#F4F3EF] text-[#121212] font-sans selection:bg-[#1C3144] selection:text-[#F4F3EF] overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-[#F7F4ED] text-[#101715] selection:bg-[#0E5D4A] selection:text-[#F7F4ED]">
       <Navbar />
 
-      {/* ============ HERO SECTION (EDITORIAL BRUTALIST GRID) ============ */}
-      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-between pt-24 border-b border-editorial">
-        {/* Top Grid Border Accent */}
-        <div className="hidden md:grid grid-cols-12 max-w-7xl mx-auto w-full border-t border-editorial text-xs font-semibold tracking-wider text-[#121212]/40 py-2 px-12 uppercase">
-          <div className="col-span-3">Open Circle Initiative</div>
-          <div className="col-span-6 text-center">Rethinking Youth Social Spaces</div>
-          <div className="col-span-3 text-right">Est. 2026 / Early Development</div>
-        </div>
+      <main>
+        <section
+          ref={heroRef}
+          id="top"
+          className="relative isolate overflow-hidden px-5 pb-12 pt-28 sm:px-8 lg:min-h-screen lg:px-12 lg:pb-16 lg:pt-32"
+        >
+          <div className="absolute inset-x-0 top-0 -z-20 h-full bg-[linear-gradient(90deg,#FCFAF5_0%,#F6F0E4_52%,#F1E1C9_100%)]" />
+          <div className="absolute right-[-12rem] top-20 -z-10 h-[34rem] w-[52rem] bg-[#EFDCC2]/70 organic-bg-panel" />
+          <div className="absolute bottom-0 left-0 -z-10 h-56 w-full bg-[#FCFAF5] story-wave" />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="flex-grow flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto w-full relative z-10 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-            
-            {/* Title / Main Hook */}
-            <div className="lg:col-span-9 space-y-8">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#121212]/15 bg-white/40 text-xs font-semibold uppercase tracking-wider">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#C5A059] animate-pulse" />
-                Early-stage Social Impact Initiative
-              </span>
-              
-              <h1 className="text-5xl md:text-8xl font-serif font-light tracking-tight leading-[0.95] text-[#121212]">
-                Belonging <br />
-                should not come <br />
-                with <span className="font-normal italic text-[#1C3144]">pressure to drink.</span>
-              </h1>
-            </div>
-
-            {/* Side aligned paragraph matching standard portfolio structures */}
-            <div className="lg:col-span-3 lg:border-l lg:border-editorial lg:pl-8 space-y-6">
-              <p className="text-base font-normal leading-relaxed text-[#121212]/70">
-                Open Circle is a mission-driven project working to create inclusive, 
-                alcohol-aware social environments for young adults through peer education, 
-                alternative programming, and community-led culture change.
-              </p>
-              
-              <div className="h-px bg-editorial w-12" />
-              
-              <div className="text-xs font-bold uppercase tracking-widest text-[#C5A059]">
-                Initiative Statement
-              </div>
-            </div>
-
-          </div>
-        </motion.div>
-
-        {/* Bottom Hero Anchor */}
-        <div className="border-t border-editorial py-8 px-6 md:px-12 bg-white/20 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-            <div className="flex flex-wrap gap-4">
-              <a href="#opening" className="btn-editorial border border-[#121212] bg-[#121212] text-[#F4F3EF] px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-colors z-10">
-                Read the vision
-              </a>
-              <a href="#problem" className="border border-[#121212]/20 hover:border-[#121212] hover:bg-[#121212]/5 transition-colors px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#121212]/80">
-                Why this matters
-              </a>
-            </div>
-            
-            <a href="#opening" className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest hover:opacity-70 transition-opacity">
-              Scroll down to explore <ArrowDown className="h-4 w-4 animate-bounce" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ OPENING STATEMENT (EDITORIAL CALLOUT) ============ */}
-      <section id="opening" className="relative px-6 py-32 md:px-12 border-b border-editorial bg-[#F0EFEA]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Column metadata label */}
-          <div className="lg:col-span-3 flex flex-row lg:flex-col justify-between lg:justify-start gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#121212]/40">Section 01 //</span>
-            <span className="font-serif italic text-sm text-[#C5A059]">The Culture We Live In</span>
-          </div>
-
-          <div className="lg:col-span-9 space-y-8">
-            <Reveal direction="up">
-              <p className="text-2xl md:text-4xl font-light leading-snug tracking-tight text-[#121212] max-w-4xl">
-                Too many young people learn that belonging comes with an unspoken cost:{' '}
-                <span className="font-normal border-b border-[#121212]/30 pb-0.5">drink, fit in, and do not question the culture around you.</span>
-              </p>
-            </Reveal>
-            
-            <Reveal direction="up" delay={0.1}>
-              <p className="text-lg md:text-xl font-light leading-relaxed text-[#121212]/70 max-w-3xl">
-                For those already navigating transition, loneliness, or structural exclusion, this default pressure can deepen isolation and increase vulnerability to harmful drinking.
-              </p>
-            </Reveal>
-
-            <Reveal direction="up" delay={0.2}>
-              <div className="pt-8 border-t border-editorial max-w-2xl">
-                <p className="text-lg font-serif italic text-[#1C3144]">
-                  Open Circle exists to build social spaces where connection, celebration, and shared identity do not depend on alcohol.
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <motion.div style={{ y: heroTextY }} className="relative z-10 max-w-2xl">
+              <Reveal direction="up">
+                <p className="mb-5 text-xs font-bold uppercase text-[#0E5D4A]">
+                  Open Circle / early-stage social impact initiative
                 </p>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ THE PROBLEM & WHO IS AFFECTED ============ */}
-      <section id="problem" className="relative border-b border-editorial">
-        <div className="grid grid-cols-1 lg:grid-cols-12 max-w-7xl mx-auto">
-          
-          {/* LEFT PANEL: THE ISSUE */}
-          <div className="lg:col-span-6 px-6 md:px-12 py-24 lg:border-r lg:border-editorial flex flex-col justify-between">
-            <div>
-              <div className="mb-12 flex items-center gap-4">
-                <span className="font-mono text-xs tracking-widest text-[#121212]/40">02 // THE DEFAULT SOCIAL CONTRACT</span>
-              </div>
-              
-              <Reveal direction="right">
-                <h3 className="text-3xl md:text-5xl font-serif font-light tracking-tight mb-8">
-                  Defaulting to <span className="font-normal italic text-[#C5A059]">excess.</span>
-                </h3>
+                <h1 className="max-w-3xl font-serif text-5xl font-light leading-[1.02] text-[#14241E] sm:text-6xl lg:text-7xl">
+                  Belonging should not come with{' '}
+                  <span className="font-medium italic text-[#0E5D4A]">pressure to drink.</span>
+                </h1>
+                <p className="mt-6 max-w-xl text-base leading-7 text-[#101715]/75 sm:text-lg">
+                  Open Circle is working to create inclusive, alcohol-aware social spaces for
+                  young people through peer education, alternative programming, and
+                  community-led culture change.
+                </p>
               </Reveal>
-              
-              <Reveal direction="right" delay={0.1}>
-                <div className="space-y-6 text-base font-normal leading-relaxed text-[#121212]/70 max-w-xl">
-                  <p>
-                    In many universities, student residences, and schools, alcohol is treated as the primary path to connection. It creates an environment where non-drinking can feel like social exclusion, while others drink not out of choice, but out of a simple desire to fit in.
-                  </p>
-                  <p>
-                    Living away from home for the first time heightens these stakes. Students navigating stress, identity, and independence are often swept into environments where alcohol becomes the only available route to a community.
-                  </p>
+
+              <Reveal direction="up" delay={0.1}>
+                <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                  {heroActions.map((action, index) => (
+                    <a
+                      key={action.href}
+                      href={action.href}
+                      className={`inline-flex min-h-12 items-center justify-between rounded-full px-5 text-sm font-bold transition ${
+                        index === 0
+                          ? 'bg-[#0E5D4A] text-white shadow-lg shadow-[#0E5D4A]/15 hover:bg-[#0A4739]'
+                          : 'border border-[#101715]/15 bg-white/45 text-[#14241E] hover:border-[#0E5D4A] hover:text-[#0E5D4A]'
+                      }`}
+                    >
+                      {action.label}
+                      {index === 0 ? <ArrowRight className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
+                    </a>
+                  ))}
                 </div>
               </Reveal>
-            </div>
 
-            <Reveal direction="right" delay={0.2} className="mt-16">
-              <div className="bg-[#121212] text-[#F4F3EF] p-8 rounded-3xl">
-                <span className="text-xs uppercase tracking-widest font-mono text-[#C5A059] block mb-4">Core Position</span>
-                <p className="text-lg font-light leading-relaxed">
-                  When alcohol becomes the default route to belonging, social pressure increases and genuine, healthy inclusion weakens.
+              <Reveal direction="up" delay={0.16}>
+                <div className="mt-10 grid gap-3 sm:grid-cols-3">
+                  {[
+                    ['01', 'Choice', 'Widening the routes into connection.'],
+                    ['02', 'Culture', 'Making healthier social norms visible.'],
+                    ['03', 'Care', 'Reducing pressure without moral judgment.'],
+                  ].map(([num, title, copy]) => (
+                    <div key={title} className="rounded-lg border border-[#101715]/10 bg-[#FCFAF5]/70 p-4 shadow-sm backdrop-blur">
+                      <span className="text-xs font-bold text-[#B88347]">{num}</span>
+                      <h3 className="mt-3 text-sm font-bold text-[#14241E]">{title}</h3>
+                      <p className="mt-1 text-xs leading-5 text-[#101715]/62">{copy}</p>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </motion.div>
+
+            <motion.div style={{ y: heroImageY }} className="relative mx-auto w-full max-w-3xl">
+              <Reveal direction="left" delay={0.05}>
+                <div className="absolute -left-8 bottom-10 h-44 w-64 bg-[#DDE8D1]/85 organic-shadow-panel" />
+                <div className="absolute -right-10 top-0 h-40 w-40 rounded-full border border-[#0E5D4A]/15" />
+                <div className="relative overflow-hidden organic-photo-hero shadow-2xl shadow-[#1B2D24]/15">
+                  <img
+                    src={heroCommunity}
+                    alt="Young people sitting together outdoors in a warm campus garden"
+                    className="h-[25rem] w-full object-cover sm:h-[34rem] lg:h-[35rem]"
+                  />
+                </div>
+
+                <div className="absolute bottom-6 left-4 right-4 rounded-lg bg-[#0A4739]/92 p-5 text-white shadow-2xl backdrop-blur sm:left-8 sm:right-auto sm:w-[21rem]">
+                  <div className="space-y-4">
+                    {[
+                      ['Connection over consumption.', Heart],
+                      ['Belonging over pressure.', Users],
+                      ['Community over isolation.', Leaf],
+                    ].map(([text, Icon]) => {
+                      const LineIcon = Icon as typeof Heart;
+
+                      return (
+                        <div key={text as string} className="flex items-center gap-3">
+                          <LineIcon className="h-5 w-5 shrink-0 text-[#DDE8D1]" />
+                          <span className="text-sm font-semibold">{text as string}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </Reveal>
+            </motion.div>
+          </div>
+        </section>
+
+        <section
+          ref={storyRef}
+          id="vision"
+          className="relative bg-[#FCFAF5] px-5 py-20 sm:px-8 lg:px-12 lg:py-28"
+        >
+          <div className="absolute inset-0 story-grid opacity-60" />
+          <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.42fr_1fr]">
+            <aside className="lg:sticky lg:top-28 lg:h-[calc(100vh-8rem)]">
+              <Reveal direction="right">
+                <p className="text-xs font-bold uppercase text-[#0E5D4A]">The case for Open Circle</p>
+                <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-[#14241E] sm:text-5xl">
+                  A calmer way to tell the truth about youth social pressure.
+                </h2>
+                <p className="mt-5 text-base leading-7 text-[#101715]/70">
+                  This narrative moves from the culture young people inherit, to who gets left
+                  out, to the model Open Circle wants to build.
+                </p>
+              </Reveal>
+
+              <div className="mt-10 hidden lg:flex">
+                <div className="relative h-80 w-px overflow-hidden rounded-full bg-[#101715]/10">
+                  <motion.div
+                    style={{ scaleY: storyLineScale }}
+                    className="absolute inset-x-0 top-0 h-full origin-top rounded-full bg-[#0E5D4A]"
+                  />
+                </div>
+                <div className="ml-5 space-y-6 text-sm font-bold text-[#101715]/40">
+                  <a href="#opening" className="block hover:text-[#0E5D4A]">
+                    Opening
+                  </a>
+                  <a href="#problem" className="block hover:text-[#0E5D4A]">
+                    Problem
+                  </a>
+                  <a href="#affected" className="block hover:text-[#0E5D4A]">
+                    Affected
+                  </a>
+                </div>
+              </div>
+            </aside>
+
+            <div className="space-y-8 lg:space-y-20">
+              {storySteps.map((step, index) => (
+                <Reveal key={step.id} direction="up" delay={index * 0.04}>
+                  <article
+                    id={step.id}
+                    className="relative overflow-hidden rounded-lg border border-[#101715]/10 bg-[#F7F4ED] p-6 shadow-xl shadow-[#17231D]/7 sm:p-9 lg:min-h-[72vh]"
+                  >
+                    <div className="absolute -right-8 -top-8 h-36 w-36 rounded-full bg-[#EFDCC2]/55" />
+                    <div className="relative grid gap-8 lg:grid-cols-[0.28fr_1fr] lg:items-start">
+                      <div className="font-serif text-7xl italic leading-none text-[#0E5D4A]/16 sm:text-8xl">
+                        0{index + 1}
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase text-[#B88347]">{step.eyebrow}</p>
+                        <h3 className="mt-4 max-w-3xl font-serif text-3xl font-light leading-tight text-[#14241E] sm:text-5xl">
+                          {step.title}
+                        </h3>
+                        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#101715]/72">{step.body}</p>
+                        <div className="mt-8 border-l-2 border-[#0E5D4A] bg-white/55 py-4 pl-5">
+                          <p className="font-serif text-xl italic leading-8 text-[#0E5D4A]">{step.callout}</p>
+                        </div>
+
+                        {step.id === 'affected' && (
+                          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                            {affectedGroups.map((group) => (
+                              <div key={group} className="flex items-center gap-3 rounded-full border border-[#101715]/10 bg-white/60 px-4 py-3">
+                                <span className="h-2 w-2 rounded-full bg-[#0E5D4A]" />
+                                <span className="text-sm font-bold text-[#14241E]">{group}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="solution" className="relative overflow-hidden bg-[#F7F4ED] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+          <div className="absolute left-[-10rem] top-20 h-[28rem] w-[28rem] rounded-full border border-[#0E5D4A]/10" />
+          <div className="mx-auto max-w-7xl">
+            <Reveal direction="up">
+              <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+                <div>
+                  <p className="text-xs font-bold uppercase text-[#0E5D4A]">The Solution</p>
+                  <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-[#14241E] sm:text-5xl">
+                    Inclusive social environments where connection does not depend on drinking.
+                  </h2>
+                </div>
+                <p className="text-lg leading-8 text-[#101715]/72">
+                  Open Circle focuses on peer education, safety culture, and alternative social
+                  programming. The goal is not judgment. It is widening choice and making
+                  healthier connection easier to see and join.
                 </p>
               </div>
             </Reveal>
-          </div>
 
-          {/* RIGHT PANEL: WHO IS AFFECTED */}
-          <div className="lg:col-span-6 px-6 md:px-12 py-24 bg-[#EAE8E3]">
-            <div className="mb-12 flex items-center gap-4">
-              <span className="font-mono text-xs tracking-widest text-[#121212]/40">03 // VULNERABLE GROUPS</span>
+            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+              {solutions.map((solution, index) => {
+                const Icon = solution.icon;
+
+                return (
+                  <Reveal key={solution.title} direction="up" delay={index * 0.08}>
+                    <article className="group relative flex min-h-[30rem] flex-col overflow-hidden rounded-lg border border-[#101715]/10 bg-[#FCFAF5] p-7 shadow-lg shadow-[#17231D]/6 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#17231D]/10">
+                      <div className="absolute right-5 top-5 font-serif text-7xl italic text-[#0E5D4A]/8">
+                        0{index + 1}
+                      </div>
+                      <div className="relative z-10">
+                        <div className="mb-7 flex h-14 w-14 items-center justify-center rounded-full bg-[#E7EBDD] text-[#0E5D4A] transition group-hover:bg-[#0E5D4A] group-hover:text-white">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <h3 className="font-serif text-2xl font-light text-[#14241E]">{solution.title}</h3>
+                        <p className="mt-4 text-base leading-7 text-[#101715]/70">{solution.description}</p>
+                      </div>
+                      <ul className="relative z-10 mt-8 space-y-3">
+                        {solution.details.map((detail) => (
+                          <li key={detail} className="flex gap-3 text-sm leading-6 text-[#101715]/76">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#B88347]" />
+                            <span>{detail}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  </Reveal>
+                );
+              })}
             </div>
+          </div>
+        </section>
 
-            <Reveal direction="left">
-              <h3 className="text-3xl md:text-5xl font-serif font-light tracking-tight mb-8">
-                Those facing the <span className="font-normal italic text-[#1C3144]">highest pressure.</span>
-              </h3>
-            </Reveal>
-
-            <Reveal direction="left" delay={0.1}>
-              <p className="text-base text-[#121212]/70 mb-10 leading-relaxed max-w-xl">
-                While youth culture is broadly affected, Open Circle prioritizes support for those navigating specific vulnerability to exclusion:
+        <section id="why" className="relative overflow-hidden bg-[#1C3144] px-5 py-20 text-[#F7F4ED] sm:px-8 lg:px-12 lg:py-28">
+          <div className="absolute inset-0 deep-noise opacity-35" />
+          <div className="absolute bottom-[-12rem] right-[-8rem] h-[26rem] w-[26rem] rounded-full border border-[#DDE8D1]/15" />
+          <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <Reveal direction="right">
+              <p className="text-xs font-bold uppercase text-[#C5A059]">Why This Matters</p>
+              <h2 className="mt-4 font-serif text-4xl font-light leading-tight sm:text-5xl">
+                Harmful drinking is shaped by environments, pressure, and social norms.
+              </h2>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72">
+                When students feel that drinking is the price of inclusion, the consequences
+                can affect wellbeing, safety, self-worth, trust, and how they adjust
+                academically and personally.
               </p>
             </Reveal>
 
-            <div className="space-y-4">
-              {affected.map((item, i) => (
-                <Reveal key={item.title} direction="left" delay={0.1 + i * 0.05}>
-                  <div className="bg-white/80 border border-editorial/40 rounded-2xl p-6 hover:bg-white hover:shadow-sm transition-all duration-300">
-                    <div className="flex gap-4 items-start">
-                      <div className="h-6 w-6 rounded-full bg-[#1C3144]/10 text-[#1C3144] flex items-center justify-center text-xs font-bold font-mono shrink-0 mt-0.5">
-                        {i + 1}
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-[#121212] text-lg">{item.title}</h4>
-                        <p className="text-sm text-[#121212]/60 mt-1 leading-relaxed">{item.description}</p>
-                      </div>
+            <Reveal direction="left" delay={0.08}>
+              <div className="rounded-lg border border-white/10 bg-white/8 p-6 shadow-2xl shadow-black/15 backdrop-blur">
+                <p className="mb-5 text-sm font-bold text-[#DDE8D1]">Open Circle aims to reduce pressure around:</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {whyMatters.map((item) => (
+                    <div key={item} className="flex items-center gap-3 rounded-full border border-white/10 bg-white/7 px-4 py-3">
+                      <Sparkles className="h-4 w-4 text-[#C5A059]" />
+                      <span className="text-sm font-semibold text-white/86">{item}</span>
                     </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section id="founder" className="bg-[#FCFAF5] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+            <Reveal direction="right">
+              <div className="relative">
+                <div className="absolute -left-5 -top-5 h-full w-full rounded-lg bg-[#EFDCC2]/75" />
+                <div className="relative overflow-hidden rounded-lg shadow-2xl shadow-[#17231D]/12">
+                  <img
+                    src={missionCafe}
+                    alt="A smiling young woman in a green sweater seated in a warm community space"
+                    className="h-[30rem] w-full object-cover"
+                  />
+                  <button
+                    type="button"
+                    aria-label="Play founder story video"
+                    className="absolute bottom-7 left-7 flex h-16 w-16 items-center justify-center rounded-full bg-[#0E5D4A] text-white shadow-lg transition hover:bg-[#0A4739]"
+                  >
+                    <Play className="ml-1 h-7 w-7 fill-current" />
+                  </button>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal direction="left" delay={0.08}>
+              <div>
+                <p className="text-xs font-bold uppercase text-[#0E5D4A]">About the Founder</p>
+                <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-[#14241E] sm:text-5xl">
+                  A personal commitment to safer, more inclusive youth social culture.
+                </h2>
+                <div className="mt-6 space-y-5 text-base leading-8 text-[#101715]/74">
+                  <p>
+                    I am a 21-year-old aspiring social impact leader committed to promoting
+                    moderate alcohol consumption, responsible social culture, and inclusion among
+                    young people.
+                  </p>
+                  <p>
+                    My interest in this work is deeply personal. I have seen the effects of
+                    alcohol abuse within my own life and community, including the loss of my father
+                    to alcohol-related illness. I have also witnessed how loneliness, peer pressure,
+                    and the desire to belong can make young people more vulnerable to harmful
+                    drinking.
+                  </p>
+                  <p>
+                    These experiences inspired Open Circle: an early-stage initiative focused on
+                    creating social spaces where connection does not depend on alcohol.
+                  </p>
+                </div>
+                <div className="mt-8 border-l-2 border-[#0E5D4A] bg-[#F7F4ED] p-5">
+                  <p className="font-serif text-xl italic leading-8 text-[#0E5D4A]">
+                    Open Circle is not an anti-party campaign. It is an inclusion and wellbeing
+                    initiative.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden bg-[#F7F4ED] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+          <div className="mx-auto max-w-7xl">
+            <Reveal direction="up">
+              <div className="mx-auto max-w-3xl text-center">
+                <p className="text-xs font-bold uppercase text-[#0E5D4A]">Early-stage Initiative</p>
+                <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-[#14241E] sm:text-5xl">
+                  Culture change begins with listening, framing, and designing from real student experience.
+                </h2>
+              </div>
+            </Reveal>
+
+            <div className="mt-12 grid gap-5 lg:grid-cols-4">
+              {earlyStage.map((item, index) => (
+                <Reveal key={item} direction="up" delay={index * 0.06}>
+                  <div className="relative min-h-[13rem] rounded-lg border border-[#101715]/10 bg-[#FCFAF5] p-6 shadow-sm">
+                    <span className="text-xs font-bold text-[#B88347]">0{index + 1}</span>
+                    <p className="mt-8 text-lg font-bold leading-7 text-[#14241E]">{item}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
           </div>
+        </section>
 
-        </div>
-      </section>
-
-      {/* ============ THE SOLUTION & APPROACHES ============ */}
-      <section id="solution" className="relative px-6 py-32 md:px-12 border-b border-editorial bg-[#F4F3EF]">
-        <div className="max-w-7xl mx-auto">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-            <div className="lg:col-span-3">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#121212]/40">Section 04 // Approaches</span>
-              <h3 className="font-serif italic text-2xl text-[#C5A059] mt-2">The Action Model</h3>
-            </div>
-            
-            <div className="lg:col-span-9">
-              <Reveal>
-                <h2 className="text-4xl md:text-6xl font-light tracking-tight text-[#121212] leading-[1.05]">
-                  Widening choices, reshaping norms, and engineering <span className="font-normal italic text-[#1C3144]">healthier community paths.</span>
-                </h2>
-              </Reveal>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {approaches.map((app, i) => (
-              <Reveal key={app.title} direction="up" delay={i * 0.1}>
-                <div className="bg-white border border-editorial rounded-3xl p-8 h-full flex flex-col justify-between transition-all hover:shadow-md hover:border-[#121212]/30 duration-300">
-                  <div className="space-y-6">
-                    <div className="flex justify-between items-center border-b border-editorial pb-4">
-                      <span className="font-mono text-xs font-semibold text-[#C5A059] tracking-widest uppercase">Methodology</span>
-                      <span className="font-mono text-xs font-bold text-[#121212]/40">{app.num}</span>
-                    </div>
-                    
-                    <h4 className="text-2xl font-medium tracking-tight text-[#121212]">{app.title}</h4>
-                    <p className="text-sm text-[#121212]/70 leading-relaxed font-light">{app.desc}</p>
-                  </div>
-
-                  <div className="mt-8 pt-6 border-t border-editorial/50">
-                    <span className="text-xs uppercase tracking-wider font-mono text-[#121212]/50 block mb-3">Core Initiatives</span>
-                    <ul className="space-y-3">
-                      {app.details.map((detail, idx) => (
-                        <li key={idx} className="flex gap-2 text-xs text-[#121212]/80 items-start">
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#1C3144] shrink-0 mt-1.5" />
-                          <span className="leading-relaxed">{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+        <section className="bg-[#FCFAF5] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+          <div className="mx-auto max-w-7xl">
+            <Reveal direction="up">
+              <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+                <div>
+                  <p className="text-xs font-bold uppercase text-[#0E5D4A]">What Open Circle Stands For</p>
+                  <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-[#14241E] sm:text-5xl">
+                    A clear culture promise.
+                  </h2>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============ WHY THIS MATTERS (EDITORIAL QUOTE & STATS) ============ */}
-      <section className="relative py-32 px-6 md:px-12 border-b border-editorial bg-[#1C3144] text-[#F4F3EF]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          
-          <div className="lg:col-span-7 space-y-8">
-            <span className="font-mono text-xs tracking-widest text-[#F4F3EF]/50 uppercase block">Section 05 // Context</span>
-            
-            <Reveal>
-              <h2 className="text-3xl md:text-5xl font-serif font-light leading-snug tracking-tight">
-                Harmful drinking is not simply an individual failure. It is shaped by <span className="font-normal italic text-[#C5A059]">unwelcoming environments</span> and taught social norms.
-              </h2>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <p className="text-lg text-[#F4F3EF]/70 leading-relaxed max-w-2xl font-light">
-                When students believe excess is the fixed price of entry, the consequences impact self-worth, academic adjustment, mental wellbeing, personal safety, and mutual community trust.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-5 bg-[#F4F3EF] text-[#121212] p-8 md:p-12 rounded-[2rem] border border-editorial">
-            <span className="text-xs uppercase tracking-widest font-mono text-[#C5A059] block mb-4">Underlying Dynamics</span>
-            <p className="text-lg font-normal mb-8 leading-relaxed">
-              Open Circle challenges the culture of default pressure by building structures for:
-            </p>
-            
-            <div className="space-y-4 font-mono text-xs font-bold uppercase">
-              {['Mental Wellbeing', 'Student Personal Safety', 'Healthy Self-Worth', 'Proactive Community Trust'].map((item, idx) => (
-                <div key={item} className="flex justify-between py-3 border-b border-editorial/40 items-center">
-                  <span>{item}</span>
-                  <span className="text-[#C5A059]">[0{idx + 1}]</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============ ABOUT THE FOUNDER ============ */}
-      <section id="founder" className="relative px-6 py-32 md:px-12 border-b border-editorial bg-[#F0EFEA]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
-          
-          {/* Label side column */}
-          <div className="lg:col-span-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#121212]/40">Section 06 // Origin</span>
-            <h3 className="font-serif italic text-2xl text-[#C5A059] mt-2">A Personal Lens</h3>
-          </div>
-
-          {/* Main content column */}
-          <div className="lg:col-span-9 space-y-12">
-            <Reveal>
-              <h2 className="text-3xl md:text-5xl font-serif font-light tracking-tight leading-tight">
-                "My interest is deeply personal. I have seen the effects of loneliness and alcohol abuse within my own community."
-              </h2>
-            </Reveal>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pt-8 border-t border-editorial">
-              <div className="space-y-6 text-base text-[#121212]/75 leading-relaxed font-light">
-                <p>
-                  As a 21-year-old aspiring social impact leader, my motivation is rooted in direct experience. Having lost my father to alcohol-related illness, I know firsthand the tragic path that dependency and default social pressure can carve.
-                </p>
-                <p>
-                  I have also witnessed how isolation, peer pressure, and the desire to fit in make young adults vulnerable. I began developing Open Circle to challenge the idea that drinking is the default route to belonging.
+                <p className="text-lg leading-8 text-[#101715]/72">
+                  The initiative is designed to feel compassionate, credible, youth-centred,
+                  research-aware, and mission-driven.
                 </p>
               </div>
+            </Reveal>
 
-              <div className="space-y-6 text-base text-[#121212]/75 leading-relaxed font-light">
-                <p>
-                  Our goal is not moral judgment or an "anti-party" crusade. It is about widening choice, championing safety, and establishing normal, visible alternative social paths for first-year and residential students.
-                </p>
-                
-                <div className="p-6 bg-white rounded-2xl border border-editorial text-xs font-bold uppercase tracking-widest text-[#121212] flex justify-between items-center">
-                  <span>Current phase: concept refinement & pilots</span>
-                  <span className="h-2 w-2 rounded-full bg-[#C5A059]" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============ WHAT WE STAND FOR (EDITORIAL PILLARS GRID) ============ */}
-      <section className="relative px-6 py-32 md:px-12 border-b border-editorial bg-[#F4F3EF]">
-        <div className="max-w-7xl mx-auto">
-          
-          <div className="text-center mb-24">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#121212]/40">Section 07 // Manifesto</span>
-            <h3 className="text-3xl md:text-5xl font-serif font-light tracking-tight mt-2">What we stand for.</h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {pillars.map((p, i) => (
-              <Reveal key={p.title} direction="scale" delay={i * 0.05}>
-                <div className="bg-white border border-editorial rounded-3xl p-8 flex flex-col justify-between h-full items-center text-center transition-all hover:scale-[1.02] hover:border-[#121212] duration-300">
-                  <div className="h-12 w-12 rounded-2xl bg-[#1C3144]/5 text-[#1C3144] flex items-center justify-center mb-6">
-                    <p.icon className="h-5 w-5" />
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-lg font-semibold tracking-tight text-[#121212] uppercase mb-1">{p.title}</h4>
-                    <p className="text-xs font-mono text-[#121212]/50 lowercase">{p.sub}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============ STUDENT SUPPORT DIRECTORY ============ */}
-      <section id="support" className="relative px-6 py-24 md:px-12 border-b border-editorial bg-[#EAE8E3]">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-14">
-            <div className="lg:col-span-3">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#121212]/40">Section 08 // Student Support</span>
-              <h3 className="font-serif italic text-2xl text-[#C5A059] mt-2">Immediate pathways</h3>
-            </div>
-
-            <div className="lg:col-span-9">
-              <Reveal>
-                <h2 className="text-3xl md:text-5xl font-light tracking-tight text-[#121212] leading-tight max-w-4xl">
-                  When alcohol or substance pressure becomes personal, help should be easy to find.
-                </h2>
-              </Reveal>
-
-              <Reveal delay={0.1}>
-                <p className="mt-6 text-base md:text-lg text-[#121212]/70 leading-relaxed max-w-3xl">
-                  Open Circle is not a crisis service. This directory points students toward established South African support routes for alcohol misuse, drug recovery, and mental health emergencies.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-            <div className="xl:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-              {supportContacts.map((contact, i) => {
-                const ContactIcon = contact.icon;
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {principles.map((principle, index) => {
+                const Icon = principle.icon;
 
                 return (
-                  <Reveal key={contact.title} direction="up" delay={i * 0.05}>
-                    <div className="bg-white border border-editorial rounded-3xl p-6 h-full flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-start justify-between gap-4 mb-6">
-                          <div>
-                            <span className="text-[10px] uppercase tracking-widest font-mono text-[#C5A059] block mb-2">
-                              {contact.category}
-                            </span>
-                            <h4 className="text-xl font-medium tracking-tight text-[#121212] leading-snug">
-                              {contact.title}
-                            </h4>
-                          </div>
-
-                          <div className="h-11 w-11 rounded-2xl bg-[#1C3144]/7 text-[#1C3144] flex items-center justify-center shrink-0">
-                            <ContactIcon className="h-5 w-5" />
-                          </div>
-                        </div>
-
-                        <p className="text-sm text-[#121212]/65 leading-relaxed">
-                          {contact.description}
-                        </p>
-                      </div>
-
-                      <div className="mt-6 space-y-3">
-                        {contact.channels.map((channel) => {
-                          const isExternal = channel.href.startsWith('http');
-
-                          return (
-                            <a
-                              key={`${contact.title}-${channel.label}`}
-                              href={channel.href}
-                              target={isExternal ? '_blank' : undefined}
-                              rel={isExternal ? 'noreferrer' : undefined}
-                              className="group flex items-center justify-between gap-4 rounded-2xl border border-editorial bg-[#F4F3EF] px-4 py-3 text-sm transition-all hover:border-[#1C3144]/30 hover:bg-[#1C3144] hover:text-[#F4F3EF]"
-                            >
-                              <span className="font-mono text-[10px] uppercase tracking-widest text-[#121212]/45 group-hover:text-[#F4F3EF]/60">
-                                {channel.label}
-                              </span>
-                              <span className="flex items-center gap-2 font-medium text-right">
-                                {channel.value}
-                                {isExternal && <ArrowUpRight className="h-3.5 w-3.5" />}
-                              </span>
-                            </a>
-                          );
-                        })}
-                      </div>
+                  <Reveal key={principle.title} direction="scale" delay={index * 0.04}>
+                    <div className="flex min-h-[12rem] flex-col justify-between rounded-lg border border-[#101715]/10 bg-[#F7F4ED] p-5 shadow-sm">
+                      <Icon className="h-7 w-7 text-[#0E5D4A]" />
+                      <h3 className="text-lg font-bold leading-6 text-[#14241E]">{principle.title}</h3>
                     </div>
                   </Reveal>
                 );
               })}
             </div>
+          </div>
+        </section>
 
-            <Reveal direction="left" className="xl:col-span-4">
-              <div className="h-full rounded-3xl border border-[#121212]/15 bg-[#121212] p-8 text-[#F4F3EF] flex flex-col justify-between">
-                <div>
-                  <div className="mb-8 flex items-center justify-between gap-6">
-                    <div>
-                      <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block mb-3">
-                        Referral concept
-                      </span>
-                      <h4 className="text-3xl font-serif font-light tracking-tight">
-                        "Find Support Near Me"
-                      </h4>
-                    </div>
+        <section id="support" className="relative overflow-hidden bg-[#0A4739] px-5 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
+          <div className="absolute -right-12 -top-12 h-56 w-56 text-[#DDE8D1]/12">
+            <Leaf className="h-full w-full rotate-12" strokeWidth={1.1} />
+          </div>
+          <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <Reveal direction="right">
+              <p className="text-xs font-bold uppercase text-[#C5A059]">Closing Statement</p>
+              <h2 className="mt-4 font-serif text-4xl font-light leading-tight sm:text-6xl">
+                Young people deserve social spaces that do not require them to compromise their wellbeing to belong.
+              </h2>
+            </Reveal>
 
-                    <div className="h-12 w-12 rounded-2xl bg-[#F4F3EF]/10 text-[#C5A059] flex items-center justify-center shrink-0">
-                      <MapPin className="h-5 w-5" />
-                    </div>
-                  </div>
-
-                  <p className="text-sm leading-relaxed text-[#F4F3EF]/70 mb-8">
-                    This can grow into a location-aware pathway that helps students move from national helplines into nearby, trusted support.
-                  </p>
-
-                  <div className="grid grid-cols-1 gap-3">
-                    {nearbySupportPaths.map((path) => (
-                      <div
-                        key={path}
-                        className="flex items-center justify-between gap-4 rounded-2xl border border-[#F4F3EF]/10 bg-white/5 px-4 py-3"
-                      >
-                        <span className="text-sm text-[#F4F3EF]/85">{path}</span>
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#C5A059]" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-8 flex flex-col gap-3">
+            <Reveal direction="left" delay={0.08}>
+              <div className="rounded-lg border border-white/12 bg-white/8 p-6 backdrop-blur">
+                <p className="text-lg leading-8 text-white/78">
+                  Open Circle is a step toward reimagining student and youth culture so that
+                  connection, celebration, and community can be built on inclusion, choice, and care.
+                </p>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <a
-                    href="https://www.sancanational.info/find-a-sanca-near-you"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F4F3EF] px-5 py-3 text-xs font-bold uppercase tracking-widest text-[#121212] transition-colors hover:bg-[#C5A059]"
+                    href="mailto:hello@opencircle.org"
+                    className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-white px-6 text-sm font-bold text-[#0A4739] transition hover:bg-[#DDE8D1]"
                   >
-                    Find a SANCA branch <ArrowUpRight className="h-4 w-4" />
+                    Support the initiative <Mail className="h-4 w-4" />
                   </a>
                   <a
-                    href="https://www.sadag.org.za/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F4F3EF]/20 px-5 py-3 text-xs font-bold uppercase tracking-widest text-[#F4F3EF] transition-colors hover:bg-[#F4F3EF] hover:text-[#121212]"
+                    href="#top"
+                    className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/25 px-6 text-sm font-bold text-white transition hover:bg-white hover:text-[#0A4739]"
                   >
-                    SADAG helplines <ArrowUpRight className="h-4 w-4" />
+                    Back to top <ArrowRight className="h-4 w-4" />
                   </a>
                 </div>
               </div>
             </Reveal>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* ============ FOOTER / CALL TO ACTION ============ */}
-      <footer id="collaborate" className="relative px-6 py-32 md:px-12 bg-[#121212] text-[#F4F3EF]">
-        <div className="max-w-7xl mx-auto flex flex-col justify-between min-h-[50vh]">
-          
-          <div className="space-y-8 max-w-4xl">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059]">Collaborate // Join Us</span>
-            <h2 className="text-4xl md:text-7xl font-serif font-light tracking-tight leading-none text-[#F4F3EF]">
-              Let's build spaces where belonging has <span className="font-normal italic text-[#C5A059]">no entry price.</span>
-            </h2>
-            
-            <p className="text-lg md:text-xl font-light text-[#F4F3EF]/70 max-w-2xl leading-relaxed">
-              Every student deserves social spaces that do not require them to compromise their wellbeing or identity.
-            </p>
-          </div>
-
-          <div className="mt-16 pt-16 border-t border-[#F4F3EF]/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
-            <div>
-              <span className="text-xs uppercase tracking-widest font-mono text-[#F4F3EF]/40 block mb-4">Direct Communication</span>
-              <a
-                href="mailto:hello@opencircle.org"
-                className="group inline-flex items-center gap-2 text-xl font-medium border-b border-[#F4F3EF]/20 pb-1 hover:text-[#C5A059] hover:border-[#C5A059] transition-all"
-              >
-                hello@opencircle.org <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </div>
-
-            <div className="flex gap-4">
-              {[Globe, MessageCircle, Users, Mail].map((Icon, i) => (
+      <footer id="resources" className="bg-[#FCFAF5] px-5 pb-6 pt-10 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-9 border-t border-[#101715]/10 pt-8 md:grid-cols-[1.4fr_0.8fr_0.95fr_1.3fr]">
+          <div>
+            <a href="#top" className="inline-flex items-center gap-3 text-[#14241E]">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0E5D4A] text-[#F7F4ED]">
+                <Users className="h-6 w-6" />
+              </span>
+              <span>
+                <span className="block text-xl font-bold leading-5">Open Circle</span>
+                <span className="block text-sm text-[#101715]/65">
+                  Building social spaces where connection does not depend on alcohol.
+                </span>
+              </span>
+            </a>
+            <div className="mt-5 flex gap-3">
+              {[MessageCircle, Mail, Users, Heart, Leaf].map((Icon, index) => (
                 <a
-                  key={i}
-                  href="#"
-                  className="flex h-12 w-12 items-center justify-center rounded-full border border-[#F4F3EF]/10 bg-white/5 hover:bg-[#F4F3EF] hover:text-[#121212] transition-all"
+                  key={index}
+                  href="#top"
+                  aria-label="Social link"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[#101715]/10 text-[#0E5D4A] transition hover:bg-[#0E5D4A] hover:text-white"
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
           </div>
 
-          <div className="mt-16 pt-8 border-t border-[#F4F3EF]/10 flex flex-col sm:flex-row justify-between text-xs font-mono text-[#F4F3EF]/40 gap-4">
-            <div>Open Circle © {new Date().getFullYear()}</div>
-            <div className="uppercase tracking-widest">A scholarship, partnership & pilot public narrative</div>
+          <div>
+            <h3 className="mb-4 text-sm font-bold text-[#14241E]">Quick Links</h3>
+            <div className="space-y-2">
+              {quickLinks.map((link) => (
+                <a key={link.href} href={link.href} className="block text-sm text-[#101715]/70 hover:text-[#0E5D4A]">
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
 
+          <div>
+            <h3 className="mb-4 text-sm font-bold text-[#14241E]">Resources</h3>
+            <div className="space-y-2">
+              {resourceLinks.map((link) => (
+                <a key={link} href="#resources" className="block text-sm text-[#101715]/70 hover:text-[#0E5D4A]">
+                  {link}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-bold text-[#14241E]">Stay Connected</h3>
+            <p className="mb-4 max-w-sm text-sm leading-6 text-[#101715]/70">
+              Get updates on events, resources, partnership opportunities, and pilot development.
+            </p>
+            <form className="flex flex-col gap-3 sm:flex-row">
+              <label className="sr-only" htmlFor="email">
+                Email address
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                className="min-h-11 flex-1 rounded-lg border border-[#101715]/12 bg-white px-4 text-sm outline-none transition placeholder:text-[#101715]/35 focus:border-[#0E5D4A]"
+              />
+              <button
+                type="submit"
+                className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#0E5D4A] px-5 text-sm font-bold text-white transition hover:bg-[#0A4739]"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-3 border-t border-[#101715]/8 pt-5 text-xs text-[#101715]/55 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Open Circle. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a href="#resources" className="hover:text-[#0E5D4A]">
+              Privacy Policy
+            </a>
+            <a href="#resources" className="hover:text-[#0E5D4A]">
+              Terms of Use
+            </a>
+          </div>
         </div>
       </footer>
     </div>

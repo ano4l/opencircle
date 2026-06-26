@@ -11,6 +11,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: #F4F3EF;
     color: #121212;
@@ -19,8 +23,13 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
     font-weight: 500;
+  }
+
+  section[id],
+  article[id] {
+    scroll-margin-top: 8.5rem;
   }
 }
 
@@ -81,4 +90,34 @@
   display: inline-flex;
   white-space: nowrap;
   animation: marquee-editorial 35s linear infinite;
+}
+
+.organic-photo-hero {
+  border-radius: 42% 58% 53% 47% / 35% 31% 69% 65%;
+}
+
+.organic-bg-panel {
+  border-radius: 38% 62% 58% 42% / 42% 34% 66% 58%;
+}
+
+.organic-shadow-panel {
+  border-radius: 48% 52% 63% 37% / 36% 48% 52% 64%;
+}
+
+.story-wave {
+  clip-path: polygon(0 42%, 18% 34%, 40% 44%, 63% 22%, 82% 36%, 100% 18%, 100% 100%, 0 100%);
+}
+
+.story-grid {
+  background-image:
+    linear-gradient(rgba(16, 23, 21, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 23, 21, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+.deep-noise {
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(197, 160, 89, 0.16), transparent 28%),
+    linear-gradient(120deg, rgba(14, 93, 74, 0.22), rgba(28, 49, 68, 0.85));
 }
